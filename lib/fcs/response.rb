@@ -21,7 +21,7 @@ module FCS
     end
 
     def ok?
-      raw_reply.start_with?('+OK') || @content_length and not error?
+      raw_reply.start_with?('+OK') or (@content_length and not error?)
     end
 
     def error?

@@ -40,13 +40,11 @@ module FCS
     end
 
     def dispatch_raw!(command)
-      puts "DISPATCHING COMMAND: #{command.inspect}"
       @socket.write(command)
       @response_class.new(@socket).parse_and_respond
     end
 
     def method_missing(method, *args, &block)
-      puts "REQUEST METHOD MISSING: #{method.inspect} | #{args.inspect}"
       if @response_class.method_defined?(method)
         dispatch!.send(method, *args, &block)
       else
