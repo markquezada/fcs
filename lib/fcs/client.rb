@@ -1,9 +1,10 @@
 require 'socket'
 require 'fcs/config'
-require 'fcs/sendmsg_request'
-require 'fcs/hash_request'
-require 'fcs/string_request'
 require 'fcs/response'
+require 'fcs/request'
+require 'fcs/string_request'
+require 'fcs/hash_request'
+require 'fcs/sendmsg_request'
 
 module FCS
   class Client
@@ -29,10 +30,24 @@ module FCS
 
     # Delgate api call to Request
     def method_missing(method, *args, &block)
-      klass = Request.class_for_api_command(method)
+      klass = class_for_api_command(method)
 
       return klass.new(@socket).send(method, *args, &block) if klass
       super(method, *args, &block)
+    end
+
+    private
+
+    def class_for_api_command(method)
+      if method == :sendmsg
+        SendmsgRequest
+      elsif Request::VALID_HASH_COMMANDS.include?(method)
+        HashRequest
+      elsif Request::VALID_STRING_COMMANDS.include?(method)
+        StringRequest
+      else
+        nil
+      end
     end
   end
 end

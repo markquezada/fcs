@@ -8,18 +8,6 @@ module FCS
                              :noevents]
     VALID_COMMANDS = VALID_HASH_COMMANDS + VALID_STRING_COMMANDS
 
-    def self.class_for_api_command(method)
-      if method == :sendmsg
-        SendmsgRequest
-      elsif Request::VALID_HASH_COMMANDS.include?(method)
-        HashRequest
-      elsif Request::VALID_STRING_COMMANDS.include?(method)
-        StringRequest
-      else
-        nil
-      end
-    end
-
     def initialize(socket, response_class=Response)
       @socket = socket
       @response_class = response_class
