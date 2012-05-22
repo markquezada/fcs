@@ -86,5 +86,5 @@ the command to FreeSWITCH. Otherwise you'll get back a `Request` object.
 5. Create new Pull Request
 
 
-[event_socket][http://wiki.freeswitch.org/wiki/Event_Socket]
-[mod_commands][http://wiki.freeswitch.org/wiki/Mod_commands]
+[event_socket]: http://wiki.freeswitch.org/wiki/Event_Socket
+[mod_commands]: http://wiki.freeswitch.org/wiki/Mod_commands
